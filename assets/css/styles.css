@@ -253,10 +253,16 @@ figure.sliding-image *, figure.sliding-image:hover {
   min-height: 100%;
 }
 
+#ruby {
+  margin-bottom: 40px;
+}
+
+
 /* line 211, ../../../src/assets/scss/partials/_global.scss */
 .cell-middle {
   display: table-cell;
   vertical-align: middle;
+  text-align: center;
 }
 
 /* line 1, ../../../src/assets/scss/partials/_type.scss */
