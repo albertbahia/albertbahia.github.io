@@ -1421,6 +1421,18 @@ section,
   margin-bottom: 40px;  
 }
 
+#twitter {
+ margin-bottom: 20px;  
+}
+
+#github {
+ margin-bottom: 20px;  
+}
+
+#blog {
+ margin-bottom: 40px;   
+}
+
 /* line 7, ../../../src/assets/scss/partials/_modules.scss */
 section {
   overflow: hidden;
