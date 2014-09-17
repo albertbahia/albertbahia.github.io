@@ -1409,10 +1409,18 @@ section,
   z-index: 10;
 }
 
+#email {
+  margin-bottom: 10px;
+}
+
 /* line 7, ../../../src/assets/scss/partials/_modules.scss */
 section {
   overflow: hidden;
   position: relative;
+}
+
+#section-a {
+  background-color: rgba(255, 112, 0, 1);
 }
 
 /* line 16, ../../../src/assets/scss/partials/_modules.scss */
@@ -1424,6 +1432,10 @@ section {
   #section-b .flex-direction-nav {
     opacity: 0;
   }
+}
+
+#section-c {
+  background-color: rgba(255, 112, 0, 1);
 }
 
 @media (min-width: 320px) {
@@ -1488,6 +1500,10 @@ section {
   #section-d .waypoint-4 {
     margin-bottom: 30px;
   }
+}
+
+#section-f {
+  background-color: rgba(255, 112, 0, 1);
 }
 
 /* line 78, ../../../src/assets/scss/partials/_modules.scss */
