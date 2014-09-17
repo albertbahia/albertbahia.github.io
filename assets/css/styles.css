@@ -54,7 +54,7 @@ a:hover {
 /* line 43, ../../../src/assets/scss/partials/_global.scss */
 .text-mid,
 *.text-mid {
-  color: #416c82;
+  color: black;
 }
 
 /* line 48, ../../../src/assets/scss/partials/_global.scss */
@@ -304,6 +304,10 @@ h5, .h5 {
 h6, .h6 {
   font-size: 14px;
   font-weight: 700;
+}
+
+#footer-copyright {
+  color: white;
 }
 
 @media (max-width: 768px) {
@@ -613,10 +617,14 @@ blockquote {
   }
 }
 
+#self-photo {
+  border: solid 10px; 
+}
+
 /* line 2, ../../../src/assets/scss/partials/_animation.scss */
 [class^="waypoint-"],
 [class*="waypoint-"] {
-  visibility: hidden;
+  /*visibility: hidden;*/
 }
 
 /* line 5, ../../../src/assets/scss/partials/_animation.scss */
@@ -1359,6 +1367,8 @@ html[xmlns] .slides {
   -webkit-transition: all 0.25s;
           transition: all 0.25s;
 }
+
+
 
 /* line 269, ../../../src/assets/scss/partials/_flexslider.scss */
 .flex-control-thumbs {
