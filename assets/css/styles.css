@@ -855,23 +855,23 @@ nav ul li {
 }
 /* line 14, ../../../src/assets/scss/partials/_nav.scss */
 nav ul li:nth-child(1) {
-  background-color: #93b7c9;
+  background-color: rgba(255, 155, 0, 1);
 }
 /* line 17, ../../../src/assets/scss/partials/_nav.scss */
 nav ul li:nth-child(2) {
-  background-color: #71a0b8;
+  background-color: rgba(255, 127, 0, 1);
 }
 /* line 20, ../../../src/assets/scss/partials/_nav.scss */
 nav ul li:nth-child(3) {
-  background-color: #5289a4;
+  background-color: rgba(255, 102, 0, 1);
 }
 /* line 23, ../../../src/assets/scss/partials/_nav.scss */
 nav ul li:nth-child(4) {
-  background-color: #416c82;
+  background-color: rgba(255, 75, 0, 1);
 }
 /* line 26, ../../../src/assets/scss/partials/_nav.scss */
 nav ul li:nth-child(5) {
-  background-color: #305060;
+  background-color: rgba(216, 67, 0, 1);
 }
 /* line 29, ../../../src/assets/scss/partials/_nav.scss */
 nav ul li:nth-child(6) {
@@ -1687,7 +1687,7 @@ section {
   font-size: 3em;
   letter-spacing: 2px;
   margin-right: -2px;
-  color: #f9fbfc;
+  color: black;
   display: inline-block;
 }
 /* line 46, ../../../src/assets/scss/partials/_modal.scss */
@@ -1710,7 +1710,7 @@ section {
 /* line 65, ../../../src/assets/scss/partials/_modal.scss */
 .header-img-bg.light .title,
 .header-img-bg.light .sub-title {
-  color: #f9fbfc;
+  color: black;
 }
 
 /* line 1, ../../../src/assets/scss/partials/_helpers.scss */
