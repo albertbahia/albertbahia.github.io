@@ -15,6 +15,10 @@ a:hover {
   text-decoration: none;
 }
 
+.devicons {
+  color: rgba(255, 112, 0, 1);
+}
+
 /* line 15, ../../../src/assets/scss/partials/_global.scss */
 .white,
 *.white {
