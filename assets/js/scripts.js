@@ -26,6 +26,7 @@ document.querySelector("#nav-toggle").addEventListener("click", function() {
 
 $(document).ready(function(){
     window.isDesktop;
+		var currentYear = new Date().getFullYear();
 
     (function(){
         var $el = $('#pollMQ');
@@ -126,7 +127,7 @@ $(document).ready(function(){
         offset: '75%'
     });
 
-   
+	$('#footer-copyright').html(`&copy; ${currentYear}  albertbahia.com, albertbahia.github.io`)   
 
 });
 
