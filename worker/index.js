@@ -8,15 +8,18 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // Handle logout — clear cookie and redirect to login
+    // Handle logout — clear cookie via 200 + meta-refresh so browser processes Set-Cookie before navigating
     if (url.pathname === LOGOUT_PATH) {
-      return new Response(null, {
-        status: 302,
-        headers: {
-          'Location': PROTECTED_PATH,
-          'Set-Cookie': `${COOKIE_NAME}=; HttpOnly; Secure; SameSite=Strict; Max-Age=0; Path=/`
+      return new Response(
+        `<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=${PROTECTED_PATH}"></head><body></body></html>`,
+        {
+          status: 200,
+          headers: {
+            'Content-Type': 'text/html',
+            'Set-Cookie': `${COOKIE_NAME}=; HttpOnly; Secure; SameSite=Strict; Max-Age=0; Path=/`
+          }
         }
-      });
+      );
     }
 
     // Pass through all other paths to GitHub Pages untouched
