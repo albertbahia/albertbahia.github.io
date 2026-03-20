@@ -55,8 +55,11 @@ export default {
       return new Response(loginHtml(), { headers: { 'Content-Type': 'text/html' } });
     }
 
-    // Auth valid — proxy to GitHub Pages
-    return fetch(request);
+    // Auth valid — proxy to GitHub Pages, prevent caching so logout works immediately
+    const response = await fetch(request);
+    const newResponse = new Response(response.body, response);
+    newResponse.headers.set('Cache-Control', 'no-store');
+    return newResponse;
   }
 };
 
