@@ -511,6 +511,25 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
+  .lock-btn {
+    display: inline-block;
+    margin-top: 10px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .lock-btn:hover {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
   @media (max-width: 640px) {
     .matrix-grid { grid-template-columns: 1fr; }
     .timeline-track { grid-template-columns: 1fr; }
@@ -527,6 +546,7 @@
     <div class="eyebrow">Strategic Positioning Report · March 2026</div>
     <h1>AI ERA<br><span>MATRIX</span></h1>
     <div class="subtitle">ALBERT BAHIA · DATA ENGINEER & ARCHITECT · BOOZ ALLEN HAMILTON</div>
+    <a href="/matrix-logout" class="lock-btn">⬛ Lock</a>
   </div>
 
   <!-- Overall progress -->

@@ -4,5 +4,6 @@ compatibility_date = "2024-01-01"
 
 routes = [
   { pattern = "albertbahia.ai/albert-ai-era-matrix.html", zone_name = "albertbahia.ai" },
-  { pattern = "albertbahia.ai/matrix-auth", zone_name = "albertbahia.ai" }
+  { pattern = "albertbahia.ai/matrix-auth", zone_name = "albertbahia.ai" },
+  { pattern = "albertbahia.ai/matrix-logout", zone_name = "albertbahia.ai" }
 ]
