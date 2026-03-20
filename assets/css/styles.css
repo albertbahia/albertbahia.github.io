@@ -1903,10 +1903,16 @@ button:focus-visible,
 /* 2026 conversion refresh */
 #top-hero {
   padding: 120px 0 80px;
+  padding-bottom: 80px;
   height: auto;
   max-height: none;
   min-height: 78vh;
   background-image: linear-gradient(rgba(14, 23, 28, 0.62), rgba(14, 23, 28, 0.62)), url("../img/picjumbo.com_IMG_6850.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  overflow: visible;
 }
 
 #top-hero .hero-title {
