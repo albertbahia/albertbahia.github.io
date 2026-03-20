@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Era Positioning Matrix — Albert Bahia</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Fraunces:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2eb;
+    --amber: #e8a020;
+    --amber-dim: #7a4f00;
+    --green: #2ecc71;
+    --green-dim: #1a5c38;
+    --red: #e84040;
+    --mid: #1e1e1e;
+    --border: #2a2a2a;
+    --text-dim: #6a6a6a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+    padding: 48px 32px;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.4;
+    z-index: 100;
+  }
+
+  .container { max-width: 960px; margin: 0 auto; }
+
+  .back-link {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 20px;
+    transition: color 0.2s ease;
+  }
+
+  .back-link:hover { color: var(--amber); }
+
+  .header {
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 8vw, 88px);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+  }
+
+  h1 span { color: var(--amber); }
+
+  .subtitle {
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  /* Overall progress bar */
+  .overall-progress {
+    background: var(--mid);
+    border: 1px solid var(--border);
+    padding: 20px 28px;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.15s forwards;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .overall-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .overall-track {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+  }
+
+  .overall-fill {
+    height: 100%;
+    background: var(--amber);
+    transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+    width: 0%;
+  }
+
+  .overall-pct {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--amber);
+    white-space: nowrap;
+  }
+
+  /* Adoption banner */
+  .adoption-banner {
+    border: 1px solid var(--border);
+    background: var(--mid);
+    padding: 24px 32px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .adoption-banner::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--amber);
+  }
+
+  .adoption-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .adoption-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--amber);
+    letter-spacing: 0.05em;
+  }
+
+  .adoption-curve {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .curve-segment {
+    height: 6px;
+    flex: 1;
+    background: var(--border);
+  }
+
+  .curve-segment.active { background: var(--amber); }
+  .curve-segment.passed { background: var(--amber-dim); }
+
+  .curve-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+
+  .curve-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    margin-bottom: 4px;
+  }
+
+  .curve-dot.active {
+    background: var(--amber);
+    box-shadow: 0 0 12px var(--amber);
+  }
+
+  .curve-dot.passed { background: var(--amber-dim); }
+
+  .curve-label {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  /* Matrix grid */
+  .matrix-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 2px;
+  }
+
+  .matrix-cell {
+    background: var(--mid);
+    border: 1px solid var(--border);
+    padding: 28px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .matrix-cell::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 60%, rgba(232,160,32,0.03));
+    pointer-events: none;
+  }
+
+  .matrix-cell:nth-child(1) { animation-delay: 0.3s; }
+  .matrix-cell:nth-child(2) { animation-delay: 0.4s; }
+  .matrix-cell:nth-child(3) { animation-delay: 0.5s; }
+  .matrix-cell:nth-child(4) { animation-delay: 0.6s; }
+  .matrix-cell:nth-child(5) { animation-delay: 0.7s; }
+  .matrix-cell:nth-child(6) { animation-delay: 0.8s; }
+
+  .cell-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .cell-domain {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .cell-title {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  .status-badge {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    white-space: nowrap;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .status-badge.strong {
+    background: rgba(46,204,113,0.15);
+    color: var(--green);
+    border: 1px solid rgba(46,204,113,0.3);
+  }
+
+  .status-badge.building {
+    background: rgba(232,160,32,0.15);
+    color: var(--amber);
+    border: 1px solid rgba(232,160,32,0.3);
+  }
+
+  .status-badge.gap {
+    background: rgba(232,64,64,0.1);
+    color: var(--red);
+    border: 1px solid rgba(232,64,64,0.25);
+  }
+
+  /* Cell progress meter */
+  .cell-progress-bar {
+    height: 2px;
+    background: var(--border);
+    margin-bottom: 18px;
+  }
+
+  .cell-progress-fill {
+    height: 100%;
+    background: var(--amber);
+    width: 0%;
+    transition: width 1.4s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .cell-progress-fill.green { background: var(--green); }
+  .cell-progress-fill.red { background: var(--red); }
+
+  /* Artifacts section */
+  .artifacts-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .artifact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .artifact-item:hover .artifact-text {
+    color: var(--white);
+  }
+
+  .artifact-checkbox {
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    background: transparent;
+  }
+
+  .artifact-item.checked .artifact-checkbox {
+    border-color: var(--green);
+    background: rgba(46,204,113,0.15);
+  }
+
+  .artifact-item.checked .artifact-checkbox::after {
+    content: '✓';
+    font-size: 9px;
+    color: var(--green);
+    line-height: 1;
+  }
+
+  .artifact-text {
+    font-size: 11px;
+    color: #8a8278;
+    line-height: 1.5;
+    transition: color 0.2s ease;
+  }
+
+  .artifact-item.checked .artifact-text {
+    color: var(--text-dim);
+    text-decoration: line-through;
+    text-decoration-color: var(--green-dim);
+  }
+
+  .artifact-tag {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 2px 6px;
+    border-radius: 2px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .artifact-tag.deliverable {
+    background: rgba(232,160,32,0.1);
+    color: var(--amber);
+    border: 1px solid rgba(232,160,32,0.2);
+  }
+
+  .artifact-tag.credential {
+    background: rgba(46,204,113,0.1);
+    color: var(--green);
+    border: 1px solid rgba(46,204,113,0.2);
+  }
+
+  .artifact-tag.action {
+    background: rgba(200,200,255,0.07);
+    color: #9090c0;
+    border: 1px solid rgba(200,200,255,0.15);
+  }
+
+  /* Completion counter per cell */
+  .cell-counter {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 14px;
+    letter-spacing: 0.1em;
+  }
+
+  .cell-counter span {
+    color: var(--amber);
+  }
+
+  /* Timeline */
+  .timeline {
+    margin-top: 2px;
+    background: var(--mid);
+    border: 1px solid var(--border);
+    padding: 28px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.9s forwards;
+  }
+
+  .timeline-header {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .timeline-track {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .timeline-phase {
+    background: var(--black);
+    border: 1px solid var(--border);
+    padding: 20px;
+  }
+
+  .phase-period {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--amber);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .phase-title {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .phase-items { list-style: none; }
+
+  .phase-items li {
+    font-size: 11px;
+    color: #8a8278;
+    margin-bottom: 6px;
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .phase-items li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--amber-dim);
+    font-size: 10px;
+  }
+
+  /* Verdict */
+  .verdict {
+    margin-top: 2px;
+    background: var(--amber);
+    padding: 24px 32px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 1.1s forwards;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .verdict-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.5);
+    white-space: nowrap;
+  }
+
+  .verdict-text {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.3;
+    font-style: italic;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    .matrix-grid { grid-template-columns: 1fr; }
+    .timeline-track { grid-template-columns: 1fr; }
+    .adoption-curve { display: none; }
+    body { padding: 24px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <a href="index.html" class="back-link">← albertbahia.ai</a>
+    <div class="eyebrow">Strategic Positioning Report · March 2026</div>
+    <h1>AI ERA<br><span>MATRIX</span></h1>
+    <div class="subtitle">ALBERT BAHIA · DATA ENGINEER & ARCHITECT · BOOZ ALLEN HAMILTON</div>
+  </div>
+
+  <!-- Overall progress -->
+  <div class="overall-progress">
+    <div class="overall-label">Overall Completion</div>
+    <div class="overall-track">
+      <div class="overall-fill" id="overallFill"></div>
+    </div>
+    <div class="overall-pct" id="overallPct">0 / 0</div>
+  </div>
+
+  <!-- Adoption Banner -->
+  <div class="adoption-banner">
+    <div>
+      <div class="adoption-label">Current Standing</div>
+      <div class="adoption-value">Early Majority → Early Adopter</div>
+    </div>
+    <div class="adoption-curve">
+      <div class="curve-item">
+        <div class="curve-dot passed"></div>
+        <div class="curve-label">Innovators</div>
+      </div>
+      <div class="curve-segment passed"></div>
+      <div class="curve-item">
+        <div class="curve-dot active"></div>
+        <div class="curve-label">Early<br>Adopter</div>
+      </div>
+      <div class="curve-segment active"></div>
+      <div class="curve-item">
+        <div class="curve-dot active"></div>
+        <div class="curve-label">Early<br>Majority</div>
+      </div>
+      <div class="curve-segment"></div>
+      <div class="curve-item">
+        <div class="curve-dot"></div>
+        <div class="curve-label">Late<br>Majority</div>
+      </div>
+      <div class="curve-segment"></div>
+      <div class="curve-item">
+        <div class="curve-dot"></div>
+        <div class="curve-label">Laggards</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Matrix Grid -->
+  <div class="matrix-grid">
+
+    <!-- D01: AI Tools -->
+    <div class="matrix-cell" data-cell="0">
+      <div class="cell-header">
+        <div>
+          <div class="cell-domain">Dimension 01</div>
+          <div class="cell-title">AI Tools &<br>Daily Practice</div>
+        </div>
+        <div class="status-badge strong">Early Adopter</div>
+      </div>
+      <div class="cell-progress-bar"><div class="cell-progress-fill green" id="fill-0"></div></div>
+      <div class="artifacts-label">Artifacts to complete</div>
+
+      <div class="artifact-item" data-cell="0">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Maintain daily AI tool log — one-line note per session on what you built or solved (running doc, private)</div>
+        <div class="artifact-tag action">Habit</div>
+      </div>
+      <div class="artifact-item" data-cell="0">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Build and deploy one AI-powered tool or feature using Claude API (beyond Minute70 — standalone project)</div>
+        <div class="artifact-tag deliverable">Deliverable</div>
+      </div>
+      <div class="artifact-item" data-cell="0">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Document EIS prototype Phase 1 in a private GitHub repo with a clear README</div>
+        <div class="artifact-tag deliverable">Deliverable</div>
+      </div>
+      <div class="artifact-item" data-cell="0">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Integrate at least one new AI tool into daily workflow and write a 1-paragraph "what changed" reflection</div>
+        <div class="artifact-tag action">Reflection</div>
+      </div>
+
+      <div class="cell-counter">Completed: <span class="counter-done">0</span> / <span class="counter-total">4</span></div>
+    </div>
+
+    <!-- D02: Infrastructure -->
+    <div class="matrix-cell" data-cell="1">
+      <div class="cell-header">
+        <div>
+          <div class="cell-domain">Dimension 02</div>
+          <div class="cell-title">AI Infrastructure<br>& Platform</div>
+        </div>
+        <div class="status-badge strong">Early Majority</div>
+      </div>
+      <div class="cell-progress-bar"><div class="cell-progress-fill green" id="fill-1"></div></div>
+      <div class="artifacts-label">Artifacts to complete</div>
+
+      <div class="artifact-item" data-cell="1">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Pass Databricks Data Engineer Professional certification exam</div>
+        <div class="artifact-tag credential">Credential</div>
+      </div>
+      <div class="artifact-item" data-cell="1">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Build and document a RAG pipeline end-to-end on Databricks (MLflow + vector store + inference endpoint)</div>
+        <div class="artifact-tag deliverable">Deliverable</div>
+      </div>
+      <div class="artifact-item" data-cell="1">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Write an internal architecture doc: "AI Data Pipeline Security on Databricks" — access control, audit logging, model artifact governance</div>
+        <div class="artifact-tag deliverable">Deliverable</div>
+      </div>
+      <div class="artifact-item" data-cell="1">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Configure Unity Catalog with model serving access controls in a sandbox environment and document the setup</div>
+        <div class="artifact-tag deliverable">Deliverable</div>
+      </div>
+
+      <div class="cell-counter">Completed: <span class="counter-done">0</span> / <span class="counter-total">4</span></div>
+    </div>
+
+    <!-- D03: Model Understanding -->
+    <div class="matrix-cell" data-cell="2">
+      <div class="cell-header">
+        <div>
+          <div class="cell-domain">Dimension 03</div>
+          <div class="cell-title">Model-Level<br>Understanding</div>
+        </div>
+        <div class="status-badge building">In Progress</div>
+      </div>
+      <div class="cell-progress-bar"><div class="cell-progress-fill" id="fill-2"></div></div>
+      <div class="artifacts-label">Artifacts to complete</div>
+
+      <div class="artifact-item" data-cell="2">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Complete Karpathy Video 1: Backprop — working Colab notebook committed to private GitHub</div>
+        <div class="artifact-tag deliverable">Notebook</div>
+      </div>
+      <div class="artifact-item" data-cell="2">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Complete Karpathy Video 2: MLP — working notebook committed</div>
+        <div class="artifact-tag deliverable">Notebook</div>
+      </div>
+      <div class="artifact-item" data-cell="2">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Complete Karpathy Videos 3–5 — notebooks committed, each with a 3-sentence summary of what you learned</div>
+        <div class="artifact-tag deliverable">Notebook</div>
+      </div>
+      <div class="artifact-item" data-cell="2">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Complete full Zero to Hero series — build a working GPT from scratch, final notebook in GitHub</div>
+        <div class="artifact-tag deliverable">Capstone</div>
+      </div>
+      <div class="artifact-item" data-cell="2">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Write a one-page "how transformers work" explanation in your own words — no jargon, plain language</div>
+        <div class="artifact-tag deliverable">Deliverable</div>
+      </div>
+
+      <div class="cell-counter">Completed: <span class="counter-done">0</span> / <span class="counter-total">5</span></div>
+    </div>
+
+    <!-- D04: Safety & Governance -->
+    <div class="matrix-cell" data-cell="3">
+      <div class="cell-header">
+        <div>
+          <div class="cell-domain">Dimension 04</div>
+          <div class="cell-title">AI Safety &<br>Governance</div>
+        </div>
+        <div class="status-badge building">Early Adopter</div>
+      </div>
+      <div class="cell-progress-bar"><div class="cell-progress-fill" id="fill-3"></div></div>
+      <div class="artifacts-label">Artifacts to complete</div>
+
+      <div class="artifact-item" data-cell="3">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Apply to BlueDot AGI Strategy cohort by March 29 deadline</div>
+        <div class="artifact-tag action">Action</div>
+      </div>
+      <div class="artifact-item" data-cell="3">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Complete BlueDot AGI Strategy cohort (Apr 6 – May 10) — all weekly assignments submitted</div>
+        <div class="artifact-tag credential">Credential</div>
+      </div>
+      <div class="artifact-item" data-cell="3">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Read NIST AI RMF in full — annotate with 5 specific applications to your current Booz Allen work</div>
+        <div class="artifact-tag deliverable">Deliverable</div>
+      </div>
+      <div class="artifact-item" data-cell="3">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Read MITRE ATLAS in full — map at least 3 attack patterns to your current data pipeline environment</div>
+        <div class="artifact-tag deliverable">Deliverable</div>
+      </div>
+      <div class="artifact-item" data-cell="3">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Complete BlueDot Technical AI Safety course (second cohort, after AGI Strategy)</div>
+        <div class="artifact-tag credential">Credential</div>
+      </div>
+
+      <div class="cell-counter">Completed: <span class="counter-done">0</span> / <span class="counter-total">5</span></div>
+    </div>
+
+    <!-- D05: Network -->
+    <div class="matrix-cell" data-cell="4">
+      <div class="cell-header">
+        <div>
+          <div class="cell-domain">Dimension 05</div>
+          <div class="cell-title">Network &<br>Internal Positioning</div>
+        </div>
+        <div class="status-badge strong">Accelerating</div>
+      </div>
+      <div class="cell-progress-bar"><div class="cell-progress-fill green" id="fill-4"></div></div>
+      <div class="artifacts-label">Artifacts to complete</div>
+
+      <div class="artifact-item" data-cell="4">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Manager repositioning conversation completed — AI security/governance direction declared</div>
+        <div class="artifact-tag action">Done ✓</div>
+      </div>
+      <div class="artifact-item" data-cell="4">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">First 1:1 meeting with Booz Allen agentic AI team contact — notes documented</div>
+        <div class="artifact-tag action">Done ✓</div>
+      </div>
+      <div class="artifact-item" data-cell="4">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Identify and join one internal Booz Allen AI community of practice or working group</div>
+        <div class="artifact-tag action">Action</div>
+      </div>
+      <div class="artifact-item" data-cell="4">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Make first LessWrong or Alignment Forum account — read 10 posts, leave 1 substantive comment</div>
+        <div class="artifact-tag action">Action</div>
+      </div>
+      <div class="artifact-item" data-cell="4">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Establish 2 warm external relationships in AI safety community (BlueDot cohort peers count)</div>
+        <div class="artifact-tag action">Action</div>
+      </div>
+
+      <div class="cell-counter">Completed: <span class="counter-done">0</span> / <span class="counter-total">5</span></div>
+    </div>
+
+    <!-- D06: Published Work -->
+    <div class="matrix-cell" data-cell="5">
+      <div class="cell-header">
+        <div>
+          <div class="cell-domain">Dimension 06</div>
+          <div class="cell-title">Published Work &<br>Visibility</div>
+        </div>
+        <div class="status-badge gap">Critical Gap</div>
+      </div>
+      <div class="cell-progress-bar"><div class="cell-progress-fill red" id="fill-5"></div></div>
+      <div class="artifacts-label">Artifacts to complete</div>
+
+      <div class="artifact-item" data-cell="5">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Create LinkedIn or Substack account dedicated to AI safety + infrastructure writing</div>
+        <div class="artifact-tag action">Action</div>
+      </div>
+      <div class="artifact-item" data-cell="5">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Publish Post 1: One real observation from your Databricks environment through an AI security lens (no client info)</div>
+        <div class="artifact-tag deliverable">Publish</div>
+      </div>
+      <div class="artifact-item" data-cell="5">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Publish Post 2: What you learned from Karpathy Video 1 — explained for a practitioner audience</div>
+        <div class="artifact-tag deliverable">Publish</div>
+      </div>
+      <div class="artifact-item" data-cell="5">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Publish Post 3: Your takeaway from BlueDot AGI Strategy cohort — what surprised you</div>
+        <div class="artifact-tag deliverable">Publish</div>
+      </div>
+      <div class="artifact-item" data-cell="5">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Make private GitHub repo public — Karpathy notebooks + RAG pipeline visible as a portfolio</div>
+        <div class="artifact-tag deliverable">Portfolio</div>
+      </div>
+      <div class="artifact-item" data-cell="5">
+        <div class="artifact-checkbox"></div>
+        <div class="artifact-text">Reach 6 published posts total by month 6 — one per month minimum</div>
+        <div class="artifact-tag deliverable">Milestone</div>
+      </div>
+
+      <div class="cell-counter">Completed: <span class="counter-done">0</span> / <span class="counter-total">6</span></div>
+    </div>
+
+  </div>
+
+  <!-- Timeline -->
+  <div class="timeline">
+    <div class="timeline-header">Execution Arc · 2026</div>
+    <div class="timeline-track">
+      <div class="timeline-phase">
+        <div class="phase-period">Now → Month 3</div>
+        <div class="phase-title">Foundation</div>
+        <ul class="phase-items">
+          <li>Karpathy Zero to Hero (Mon/Sun)</li>
+          <li>BlueDot AGI Strategy cohort (Apr 6)</li>
+          <li>Databricks Prof cert (Sat)</li>
+          <li>Engage agentic AI team at BAH</li>
+          <li>Apply MITRE ATLAS lens to current work</li>
+        </ul>
+      </div>
+      <div class="timeline-phase">
+        <div class="phase-period">Month 3 → Month 6</div>
+        <div class="phase-title">Build & Publish</div>
+        <ul class="phase-items">
+          <li>RAG pipeline on Databricks end-to-end</li>
+          <li>AI security threat model (real env)</li>
+          <li>First public post on LinkedIn/Substack</li>
+          <li>BlueDot Technical AI Safety course</li>
+          <li>Warm lab relationships begin</li>
+        </ul>
+      </div>
+      <div class="timeline-phase">
+        <div class="phase-period">Month 6 → Month 12</div>
+        <div class="phase-title">Authority</div>
+        <ul class="phase-items">
+          <li>6+ published posts in public</li>
+          <li>Repositioned role at BAH confirmed</li>
+          <li>AI safety community presence established</li>
+          <li>Frontier lab conversation viable</li>
+          <li>EIS gets dedicated time slot</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Verdict -->
+  <div class="verdict">
+    <div class="verdict-label">Bottom Line</div>
+    <div class="verdict-text">"The positioning is confirmed. The network is open. The window in AI safety and governance is right now — not in 18 months. Everything else is execution."</div>
+  </div>
+
+</div>
+
+<script>
+  // Per-cell totals
+  const cellTotals = [4, 4, 5, 5, 5, 6];
+
+  function updateCell(cellIndex) {
+    const cell = document.querySelector(`.matrix-cell[data-cell="${cellIndex}"]`);
+    const items = cell.querySelectorAll(`.artifact-item[data-cell="${cellIndex}"]`);
+    const done = cell.querySelectorAll(`.artifact-item[data-cell="${cellIndex}"].checked`).length;
+    const total = cellTotals[cellIndex];
+    const pct = total > 0 ? (done / total) * 100 : 0;
+
+    cell.querySelector('.counter-done').textContent = done;
+    cell.querySelector('.counter-total').textContent = total;
+
+    const fill = document.getElementById(`fill-${cellIndex}`);
+    fill.style.width = pct + '%';
+
+    updateOverall();
+  }
+
+  function updateOverall() {
+    const allItems = document.querySelectorAll('.artifact-item');
+    const allDone = document.querySelectorAll('.artifact-item.checked');
+    const total = allItems.length;
+    const done = allDone.length;
+    const pct = total > 0 ? (done / total) * 100 : 0;
+
+    document.getElementById('overallFill').style.width = pct + '%';
+    document.getElementById('overallPct').textContent = `${done} / ${total}`;
+  }
+
+  // Load saved state
+  function loadState() {
+    try {
+      const saved = JSON.parse(localStorage.getItem('matrix_state') || '{}');
+      document.querySelectorAll('.artifact-item').forEach((item, idx) => {
+        if (saved[idx]) item.classList.add('checked');
+      });
+    } catch(e) {}
+  }
+
+  function saveState() {
+    try {
+      const state = {};
+      document.querySelectorAll('.artifact-item').forEach((item, idx) => {
+        state[idx] = item.classList.contains('checked');
+      });
+      localStorage.setItem('matrix_state', JSON.stringify(state));
+    } catch(e) {}
+  }
+
+  // Click handlers
+  document.querySelectorAll('.artifact-item').forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.toggle('checked');
+      const cellIndex = parseInt(item.getAttribute('data-cell'));
+      updateCell(cellIndex);
+      saveState();
+    });
+  });
+
+  // Init
+  loadState();
+  for (let i = 0; i < 6; i++) updateCell(i);
+
+  // Animate progress bars on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const cellIndex = parseInt(entry.target.getAttribute('data-cell'));
+        updateCell(cellIndex);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('.matrix-cell').forEach(cell => observer.observe(cell));
+
+  // Overall fill on load
+  setTimeout(() => updateOverall(), 400);
+</script>
+</body>
+</html>

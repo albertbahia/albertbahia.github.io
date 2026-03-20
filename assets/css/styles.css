@@ -2136,3 +2136,208 @@ button:focus-visible,
     max-width: 340px;
   }
 }
+
+/* ===== Dark Theme ===== */
+
+body {
+  background: #0a0a0a;
+  color: #f5f2eb;
+  font-family: 'DM Mono', monospace;
+}
+
+/* Nav */
+.flip-nav {
+  background: #0a0a0a;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.top-nav a,
+.top-nav li a {
+  color: #c8c4bb;
+}
+
+.top-nav a:hover,
+.top-nav li a:hover {
+  color: #ff7000;
+}
+
+#nav-toggle span,
+#nav-toggle span::before,
+#nav-toggle span::after {
+  background: #f5f2eb;
+}
+
+/* Section backgrounds */
+.section-intro,
+.section-cases,
+.section-skills,
+.section-book {
+  background: #0f0f0f;
+}
+
+.section-how,
+.section-minute70 {
+  background: #141414;
+  border-top: 1px solid #2a2a2a;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+/* Section titles */
+.section-title {
+  font-family: 'Fraunces', serif;
+  color: #f5f2eb;
+}
+
+/* Hero headline */
+.hero-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 7vw, 84px);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+/* Cards */
+.path-card,
+.case-card,
+.principle-card,
+.skills-card {
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 0;
+  box-shadow: none;
+  color: #f5f2eb;
+}
+
+.path-card h3,
+.case-card h3,
+.principle-card h3,
+.skills-card h3 {
+  font-family: 'Fraunces', serif;
+  color: #f5f2eb;
+}
+
+.path-card p,
+.case-card p,
+.principle-card p,
+.skills-card p,
+.path-card li,
+.case-card li,
+.skills-card li {
+  color: #8a8278;
+}
+
+/* Tech tags */
+.tech-tags span {
+  background: rgba(255, 112, 0, 0.1);
+  color: #ff7000;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 112, 0, 0.2);
+}
+
+/* Case focus */
+.case-focus {
+  color: #ff7000;
+}
+
+/* Case detail */
+.case-detail {
+  border-top: 1px solid #2a2a2a;
+}
+
+.case-detail li {
+  color: #8a8278;
+}
+
+.case-detail li strong {
+  color: #f5f2eb;
+}
+
+/* btn-hollow on dark */
+.btn.btn-hollow {
+  color: #c8c4bb;
+  border-color: #3a3a3a;
+  background: transparent;
+}
+
+.btn.btn-hollow:hover {
+  background: #ff7000;
+  border-color: #ff7000;
+  color: #fff;
+}
+
+/* Legacy projects */
+.legacy-projects {
+  background: #1e1e1e;
+  border: 1px dashed #3a3a3a;
+  border-radius: 0;
+}
+
+.legacy-projects h3 {
+  font-family: 'Fraunces', serif;
+  color: #f5f2eb;
+}
+
+.legacy-projects p {
+  color: #8a8278;
+}
+
+.legacy-projects a {
+  color: #ff7000;
+}
+
+.legacy-projects a:hover {
+  color: #e45f00;
+}
+
+/* Earlier tools toggle */
+.earlier-tools-toggle {
+  color: #ff7000;
+}
+
+.earlier-tools-toggle:hover {
+  color: #e45f00;
+}
+
+#earlier-tools p {
+  color: #8a8278;
+}
+
+/* Minute70 */
+.minute-hook {
+  font-family: 'Fraunces', serif;
+  color: #f5f2eb;
+}
+
+.minute-copy,
+.minute-list li {
+  color: #8a8278;
+}
+
+/* Book section */
+.book-list li {
+  color: #8a8278;
+}
+
+.book-email a {
+  color: #ff7000;
+}
+
+.book-email a:hover {
+  color: #e45f00;
+}
+
+/* Footer */
+footer {
+  background: #0a0a0a !important;
+  border-top: 1px solid #2a2a2a;
+  color: #6a6a6a;
+}
+
+/* Focus outlines on dark */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.top-nav a:focus-visible {
+  outline-color: #ff7000;
+}
