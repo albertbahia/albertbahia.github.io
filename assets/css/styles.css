@@ -1429,7 +1429,7 @@ section,
   z-index: 10;
 }
 
-#email { 
+.icon-spacing { 
 	margin: 0px 10px 20px 10px;
 }
 
@@ -1799,4 +1799,334 @@ section {
   opacity: 0.4;
   -webkit-transition: 0.5s all;
           transition: 0.5s all;
+}
+
+/* UX improvements */
+#nav-toggle {
+  border: 0;
+  background: transparent;
+}
+
+#section-c {
+  height: auto;
+  min-height: 520px;
+}
+
+@media (max-width: 768px) {
+  #section-c {
+    min-height: 0;
+  }
+}
+
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.top-nav a:focus-visible {
+  outline: 3px solid #0e171c;
+  outline-offset: 2px;
+}
+
+.flexslider a:focus-visible,
+.flex-container a:focus-visible {
+  outline: 3px solid #0e171c;
+  outline-offset: 2px;
+}
+
+.flexslider a:focus,
+.flex-container a:focus {
+  outline: 3px solid #0e171c;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *:before,
+  *:after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Content and polish pass */
+.intro-lead {
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.45;
+}
+
+.intro-copy {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.portfolio-note,
+.contact-intro {
+  max-width: 860px;
+  margin: 10px auto 30px;
+  font-family: "Droid Serif", serif;
+  font-size: 1.15em;
+  line-height: 1.7;
+}
+
+.status-badge {
+  display: inline-block;
+  margin: 6px 0 14px;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  background: rgba(14, 23, 28, 0.42);
+}
+
+.project-link-note {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.9em;
+  opacity: 0.75;
+}
+
+#section-f .contact-tile,
+#section-e .contact-tile {
+  border-radius: 6px;
+  box-shadow: 0 8px 20px rgba(14, 23, 28, 0.12);
+}
+
+#section-f .contact-tile a {
+  word-break: break-word;
+}
+
+/* 2026 conversion refresh */
+#top-hero {
+  padding: 120px 0 80px;
+  height: auto;
+  max-height: none;
+  min-height: 78vh;
+  background-image: linear-gradient(rgba(14, 23, 28, 0.62), rgba(14, 23, 28, 0.62)), url("../img/picjumbo.com_IMG_6850.jpg");
+}
+
+#top-hero .hero-title {
+  margin-top: 0;
+}
+
+.hero-headline {
+  font-family: "Montserrat", sans-serif;
+  font-size: 3rem;
+  line-height: 1.2;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  margin-bottom: 20px;
+}
+
+.hero-subhead {
+  max-width: 850px;
+  margin: 0 auto 20px;
+  color: #f0f5f8;
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+.proof-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0 28px;
+}
+
+.proof-chip {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  color: #f9fbfc;
+  background: rgba(14, 23, 28, 0.28);
+  font-size: 0.9rem;
+  padding: 8px 14px;
+}
+
+.cta-btn,
+.card-btn {
+  background: #ff7000;
+  color: #fff;
+  border: 2px solid #ff7000;
+  border-radius: 6px;
+  font-weight: 700;
+  padding: 12px 22px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.cta-btn:hover,
+.card-btn:hover,
+.cta-btn:focus,
+.card-btn:focus {
+  color: #fff;
+  background: #e45f00;
+  border-color: #e45f00;
+}
+
+.cta-microcopy {
+  margin-top: 12px;
+  color: #d7e4eb;
+  font-size: 0.95rem;
+}
+
+.hero-text-link {
+  color: #f9fbfc;
+  text-decoration: underline;
+}
+
+.section-intro,
+.section-cases,
+.section-skills,
+.section-book {
+  background: #f6f8fa;
+}
+
+.section-how,
+.section-minute70 {
+  background: #ffffff;
+}
+
+.path-grid .col-md-6 {
+  margin-bottom: 20px;
+}
+
+.path-card,
+.case-card,
+.principle-card,
+.skills-card {
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #e2e8ee;
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 8px 24px rgba(14, 23, 28, 0.06);
+}
+
+.path-card h3,
+.case-card h3,
+.principle-card h3,
+.skills-card h3 {
+  margin-top: 0;
+  font-size: 1.4rem;
+}
+
+.path-card ul,
+.case-detail ul,
+.skills-card ul,
+.book-list,
+.minute-list,
+.legacy-projects ul {
+  padding-left: 20px;
+  margin-bottom: 18px;
+}
+
+.case-focus {
+  color: #416c82;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tech-tags span {
+  background: #e7eff4;
+  color: #143447;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  padding: 5px 10px;
+}
+
+.case-toggle {
+  margin-top: 12px;
+}
+
+.case-detail {
+  margin-top: 14px;
+  border-top: 1px solid #e2e8ee;
+  padding-top: 14px;
+}
+
+.legacy-projects {
+  margin-top: 30px;
+  padding: 18px 20px;
+  background: #fff;
+  border: 1px dashed #cedbe4;
+  border-radius: 8px;
+}
+
+.section-how {
+  border-top: 1px solid #ecf0f3;
+  border-bottom: 1px solid #ecf0f3;
+}
+
+.minute-hook {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.minute-copy {
+  max-width: 820px;
+  margin: 0 auto 16px;
+  text-align: center;
+}
+
+.minute-list {
+  max-width: 420px;
+  margin: 0 auto 26px;
+}
+
+.minute-cta-group {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.section-book .book-list {
+  display: inline-block;
+  text-align: left;
+  margin: 20px auto 10px;
+}
+
+.book-email {
+  margin-top: 14px;
+  font-size: 0.95rem;
+}
+
+#section-c {
+  height: auto;
+  min-height: 0;
+}
+
+@media (max-width: 768px) {
+  #top-hero {
+    min-height: 0;
+    padding: 90px 0 55px;
+  }
+
+  .hero-headline {
+    font-size: 2rem;
+  }
+
+  .hero-subhead {
+    font-size: 1.05rem;
+  }
+
+  .cta-btn,
+  .card-btn,
+  .btn.btn-hollow {
+    width: 100%;
+    max-width: 340px;
+  }
 }
