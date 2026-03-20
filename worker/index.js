@@ -1,11 +1,23 @@
 const PROTECTED_PATH = '/albert-ai-era-matrix.html';
 const AUTH_PATH = '/matrix-auth';
+const LOGOUT_PATH = '/matrix-logout';
 const COOKIE_NAME = 'matrix_auth';
 const COOKIE_MAX_AGE = 60 * 60 * 8; // 8 hours
 
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    // Handle logout — clear cookie and redirect to login
+    if (url.pathname === LOGOUT_PATH) {
+      return new Response(null, {
+        status: 302,
+        headers: {
+          'Location': PROTECTED_PATH,
+          'Set-Cookie': `${COOKIE_NAME}=; HttpOnly; Secure; SameSite=Strict; Max-Age=0; Path=/`
+        }
+      });
+    }
 
     // Pass through all other paths to GitHub Pages untouched
     if (url.pathname !== PROTECTED_PATH && url.pathname !== AUTH_PATH) {
